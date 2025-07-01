@@ -9,7 +9,6 @@ interface DebugPanelProps {
 
 export default function DebugPanel({
   processingStats,
-  extractionLogs,
   isVisible = false,
 }: DebugPanelProps) {
   const [showDetails, setShowDetails] = useState(false);
@@ -95,51 +94,6 @@ export default function DebugPanel({
               </span>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* ===== DEPENDENCIES ===== */}
-      {processingStats && processingStats.allDependencies.length > 0 && (
-        <div className="mb-4">
-          <div className="text-yellow-400 mb-2">📦 DEPENDENCIES FOUND:</div>
-          <div className="pl-4">
-            <div className="text-white">
-              {processingStats.allDependencies.join(", ")}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ===== DETAILED LOGS ===== */}
-      {showDetails && extractionLogs && (
-        <div className="border-t border-gray-700 pt-4">
-          <div className="text-yellow-400 mb-2">🔍 EXTRACTION LOGS:</div>
-          {extractionLogs.map((log, index) => (
-            <div key={index} className="pl-4 mb-3 border-l-2 border-gray-600">
-              <div className="text-blue-400">
-                📅 {log.timestamp.toLocaleTimeString()}
-              </div>
-              <div>
-                📄 Input Length:{" "}
-                <span className="text-white">{log.inputLength}</span>
-              </div>
-              <div>
-                🔢 Blocks Found:{" "}
-                <span className="text-white">{log.blocksFound}</span>
-              </div>
-              <div>
-                🔤 Languages:{" "}
-                <span className="text-white">{log.languages.join(", ")}</span>
-              </div>
-              <div>
-                ⏱️ Processing Time:{" "}
-                <span className="text-white">{log.processingTime}ms</span>
-              </div>
-              <div>
-                🔧 Method: <span className="text-white">{log.method}</span>
-              </div>
-            </div>
-          ))}
         </div>
       )}
 

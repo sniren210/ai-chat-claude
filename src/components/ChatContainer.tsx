@@ -6,7 +6,8 @@ import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import CodeTemplates from "./CodeTemplates";
 import DebugPanel from "./DebugPanel";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 export default function ChatContainer() {
   const {
@@ -20,6 +21,37 @@ export default function ChatContainer() {
   } = useChat();
   const [showTemplates, setShowTemplates] = useState(false);
   const [showDebugPanel, setShowDebugPanel] = useState(false);
+  const [isInputVisible, setIsInputVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    const handleScroll = (e: Event) => {
+      if (messages.length === 0) return;
+
+      const scrollElement = e.target as HTMLElement;
+      const latest = scrollElement.scrollTop;
+      const direction = latest > lastScrollYRef.current ? "down" : "up";
+
+      if (direction === "down" && latest > 50) {
+        setIsInputVisible(false);
+      } else if (direction === "up") {
+        setIsInputVisible(true);
+      }
+      lastScrollYRef.current = latest;
+    };
+
+    if (scrollContainer) {
+      scrollContainer.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   // Get processing stats from the latest assistant message
   const latestAssistantMessage = messages
@@ -29,7 +61,7 @@ export default function ChatContainer() {
   const processingStats = latestAssistantMessage?.processingStats;
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50 overflow-hidden">
       {/* Header */}
       <div className="bg-white border-b px-6 py-4">
         <div className="flex items-center justify-between">
@@ -86,9 +118,9 @@ export default function ChatContainer() {
       )}
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="overflow-y-auto p-6 " ref={scrollContainerRef}>
         {messages.length === 0 ? (
-          <div className="text-center text-gray-500 mt-20">
+          <div className="text-center text-gray-500 mt-20 ">
             <div className="text-6xl mb-4">💻</div>
             <h2 className="text-2xl font-semibold mb-2">
               Welcome to AI Code Generator
@@ -184,7 +216,17 @@ export default function ChatContainer() {
       </div>
 
       {/* Input */}
-      <ChatInput onSendMessage={sendMessage} disabled={isLoading} />
+      <motion.div
+        className="sticky bottom-0 bg-white border-t"
+        initial={{ y: 0 }}
+        animate={{
+          y: isInputVisible ? 0 : 100,
+          display: isInputVisible ? "block" : "none",
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <ChatInput onSendMessage={sendMessage} disabled={isLoading} />
+      </motion.div>
 
       {/* Debug Footer */}
       {showDebugPanel && (

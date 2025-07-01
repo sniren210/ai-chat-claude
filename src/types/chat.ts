@@ -4,26 +4,33 @@ export interface Message {
   content: string;
   timestamp: Date;
   codeBlocks?: CodeBlock[];
-  language?: string;
   processingStats?: ProcessingStats;
+}
+
+export interface ChatState {
+  messages: Message[];
+  isLoading: boolean;
+  error: string | null;
 }
 
 export interface CodeBlock {
   id: string;
   language: string;
-  code: string;
   filename?: string;
-  description?: string;
-  metadata?: CodeMetadata;
+  code: string;
+  metadata?: CodeBlockMetadata;
 }
 
-export interface CodeMetadata {
+export interface CodeBlockMetadata {
   lineCount: number;
   hasImports: boolean;
   hasExports: boolean;
   hasComments: boolean;
   estimatedComplexity: "low" | "medium" | "high";
   dependencies?: string[];
+  functions?: string[];
+  classes?: string[];
+  variables?: string[];
 }
 
 export interface ProcessingStats {
@@ -38,13 +45,71 @@ export interface ProcessingStats {
     medium: number;
     high: number;
   };
-  allDependencies: string[];
+  extractionTime: number;
 }
 
-export interface ChatState {
-  messages: Message[];
-  isLoading: boolean;
-  error: string | null;
+export interface ExtractionLog {
+  timestamp: Date;
+  level: "info" | "warning" | "error";
+  message: string;
+  details?: unknown;
+}
+
+// ===== VISUAL PREVIEW TYPES =====
+
+export interface JSFunction {
+  name: string;
+  params: string[];
+  type: "function" | "arrow" | "method";
+  lineCount: number;
+}
+
+export interface JSVariable {
+  name: string;
+  type: string;
+}
+
+export interface JSImport {
+  module: string;
+  items: string[];
+}
+
+export interface JSClass {
+  name: string;
+  methods: string[];
+  properties: string[];
+  extends?: string;
+}
+
+export interface SQLTable {
+  name: string;
+  columns: Array<{ name: string; type: string }>;
+}
+
+export interface SQLQuery {
+  type: string;
+  tables: string[];
+  preview: string;
+}
+
+export interface PythonFunction {
+  name: string;
+  params: string[];
+  lineCount: number;
+  decorators: string[];
+}
+
+export interface PythonClass {
+  name: string;
+  methods: string[];
+  attributes: string[];
+  inheritance: string[];
+}
+
+export interface PythonImport {
+  module: string;
+  alias?: string;
+  items: string[];
 }
 
 export interface CodeGenerationRequest {
@@ -52,22 +117,4 @@ export interface CodeGenerationRequest {
   language?: string;
   framework?: string;
   requirements?: string[];
-}
-
-// ===== EXTRACTION TRACKING TYPES =====
-export interface ExtractionLog {
-  timestamp: Date;
-  inputLength: number;
-  blocksFound: number;
-  languages: string[];
-  processingTime: number;
-  method: "enhanced" | "simple" | "fallback";
-}
-
-export interface CodeProcessingResult {
-  blocks: CodeBlock[];
-  stats: ProcessingStats;
-  extractionLog: ExtractionLog;
-  success: boolean;
-  errors?: string[];
 }

@@ -29,27 +29,28 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
   const popularLanguages = [
     "JavaScript",
     "TypeScript",
-    "Python",
-    "Java",
-    "C#",
-    "Go",
-    "Rust",
-    "PHP",
-    "Ruby",
-    "Swift",
+    // "Python",
+    // "Java",
+    // "C#",
+    // "Go",
+    // "Rust",
+    // "PHP",
+    // "Ruby",
+    // "Swift",
   ];
 
   const popularFrameworks = [
+    "Vanila",
     "React",
     "Next.js",
     "Vue.js",
-    "Angular",
-    "Express.js",
-    "Django",
-    "Flask",
-    "Spring Boot",
-    "Laravel",
-    ".NET",
+    // "Angular",
+    // "Express.js",
+    // "Django",
+    // "Flask",
+    // "Spring Boot",
+    // "Laravel",
+    // ".NET",
   ];
 
   return (

@@ -74,10 +74,10 @@ export async function POST(request: NextRequest) {
     // Determine max_tokens based on request type
     const maxTokens =
       complexity === "simple"
-        ? 15000
+        ? 3500
         : complexity === "complex"
-        ? 64000
-        : 32000; // default for code generation
+        ? 10000
+        : 5000; // default for code generation
 
     const response = await anthropic.messages.create({
       model: "claude-3-7-sonnet-latest",

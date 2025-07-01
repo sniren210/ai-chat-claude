@@ -27,7 +27,7 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-full shadow-md hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white p-4 rounded-full border">
       <form onSubmit={handleSubmit} className="flex items-center gap-2">
         <div className="flex-1">
           <textarea

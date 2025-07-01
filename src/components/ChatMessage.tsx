@@ -13,6 +13,51 @@ export default function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === "user";
   const hasCodeBlocks = message.codeBlocks && message.codeBlocks?.length > 0;
 
+  const [copiedBlocks, setCopiedBlocks] = useState<Set<string>>(new Set());
+
+  const copyToClipboard = async (text: string, blockId: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedBlocks((prev) => new Set([...prev, blockId]));
+      setTimeout(() => {
+        setCopiedBlocks((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(blockId);
+          return newSet;
+        });
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
+
+  const formatContent = (content: string) => {
+    // Remove code blocks from content since we'll display them separately
+    return content.replace(/```[\w]*:?[^\n]*\n[\s\S]*?```/g, "").trim();
+  };
+
+  const formatCodeText = (text: string) => {
+    console.log("🔧 Formatting code text:");
+
+    console.log(/^[\w]*\n[\s\S]*$/.test(text));
+
+    if (/^[\w]*\n[\s\S]*$/.test(text)) {
+      return (
+        <code className="px-1 py-0.5 rounded bg-gray-100 font-mono text-sm">
+          {text.slice(text.indexOf("\n") + 1, -3)}
+        </code>
+      );
+    }
+    return text;
+  };
+
+  const combine = (text: string) => {
+    return text
+      .split(/```[\w]*\n/)
+      .map((part) => formatCodeText(part))
+      .join("");
+  };
+
   return (
     <>
       <div className="flex gap-4">
@@ -71,7 +116,11 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
             {/* Message Content */}
             <div className={`prose max-w-none ${isUser ? "prose-invert" : ""}`}>
-              <div className="whitespace-pre-wrap">{message.content}</div>
+              {formatContent(message.content) && (
+                <div className="whitespace-pre-wrap mb-3">
+                  {formatContent(message.content)}
+                </div>
+              )}
             </div>
 
             {/* Code Blocks Summary */}

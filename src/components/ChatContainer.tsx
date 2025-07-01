@@ -62,13 +62,13 @@ export default function ChatContainer() {
   const processingStats = latestAssistantMessage?.processingStats;
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 overflow-hidden">
+    <div className="flex flex-col h-screen bg-white overflow-hidden">
       {/* Header */}
       <div className="px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Welcome to Flixscode.id
+              Welcome to Flixscode.ai
             </h1>
             <p className="text-gray-600">
               Transform your ideas into stunning UI/UX with a single prompt
@@ -115,7 +115,7 @@ export default function ChatContainer() {
               <ChatInput onSendMessage={sendMessage} disabled={isLoading} />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
               <div
                 className="bg-white p-4 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-shadow"
                 onClick={() =>
@@ -195,7 +195,7 @@ export default function ChatContainer() {
                   Best practices for navigation, forms, and user flows
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         ) : (
           <div>

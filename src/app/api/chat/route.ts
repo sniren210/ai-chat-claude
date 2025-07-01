@@ -8,6 +8,8 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+const complexity = process.env.COMPLEXITY_KEY || "complex"; // Default complexity level
+
 const CODE_GENERATION_SYSTEM_PROMPT = `You are an expert frontend developer and UI/UX designer. Your role is to:
 
 1. Create beautiful, responsive, and user-friendly interfaces
@@ -67,9 +69,13 @@ export async function POST(request: NextRequest) {
     console.log("📝 Messages being sent:", claudeMessages.length);
     console.log("⚙️ Code request options:", codeRequest);
 
+    // Determine max_tokens based on request type
+    const maxTokens =
+      complexity === "simple" ? 4000 : complexity === "complex" ? 8000 : 6000; // default for code generation
+
     const response = await anthropic.messages.create({
-      model: "claude-3-5-sonnet-20240620",
-      max_tokens: 4000,
+      model: "claude-3-7-sonnet-latest",
+      max_tokens: maxTokens,
       system: CODE_GENERATION_SYSTEM_PROMPT,
       messages: claudeMessages as MessageParam[],
     });

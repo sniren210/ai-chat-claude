@@ -68,7 +68,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         >
           <div
             className={`max-w-full rounded-lg p-4 ${
-              isUser ? "bg-blue-600 text-white" : "bg-white border shadow-sm"
+              isUser ? "bg-blue-400 text-white" : "bg-white border shadow-sm"
             }`}
           >
             {/* Message Header */}
@@ -90,7 +90,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                     className={`px-3 py-1 rounded text-xs transition-colors ${
                       isUser
                         ? "bg-blue-500 hover:bg-blue-400 text-white"
-                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                        : "bg-blue-400 hover:bg-blue-700 text-white"
                     }`}
                   >
                     {isFullScreen ? "↙️ Exit Full Screen" : "↗️ Full Screen"}
@@ -103,7 +103,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                     className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
                       isUser
                         ? "bg-blue-500 hover:bg-blue-400 text-white"
-                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                        : "bg-blue-400 hover:bg-blue-700 text-white"
                     }`}
                   >
                     {showPreview
@@ -162,7 +162,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                     className={`px-3 py-1 rounded text-xs transition-colors ${
                       isUser
                         ? "bg-green-500 hover:bg-green-400 text-white"
-                        : "bg-green-600 hover:bg-green-700 text-white"
+                        : "bg-green-400 hover:bg-green-700 text-white"
                     }`}
                   >
                     💾 Download All
@@ -174,7 +174,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                     className={`px-3 py-1 rounded text-xs transition-colors ${
                       isUser
                         ? "bg-purple-500 hover:bg-purple-400 text-white"
-                        : "bg-purple-600 hover:bg-purple-700 text-white"
+                        : "bg-purple-400 hover:bg-purple-700 text-white"
                     }`}
                   >
                     📋 Copy All

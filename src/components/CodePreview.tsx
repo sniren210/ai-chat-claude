@@ -122,12 +122,12 @@ export default function CodePreview({
                       </div>
 
                       {block.filename && (
-                        <div className="text-xs text-blue-600 mb-1 truncate">
+                        <div className="text-xs text-blue-400 mb-1 truncate">
                           📁 {block.filename}
                         </div>
                       )}
 
-                      <div className="text-xs text-gray-600 line-clamp-2">
+                      <div className="text-xs text-gray-400 line-clamp-2">
                         {block.code.substring(0, 100)}...
                       </div>
 
@@ -177,12 +177,12 @@ export default function CodePreview({
                     {getLanguageIcon(selectedBlock.language)}{" "}
                     {selectedBlock.language}
                     {selectedBlock.filename && (
-                      <span className="ml-2 text-blue-600">
+                      <span className="ml-2 text-blue-400">
                         📁 {selectedBlock.filename}
                       </span>
                     )}
                   </h3>
-                  <div className="text-sm text-gray-600 mt-1">
+                  <div className="text-sm text-gray-400 mt-1">
                     {selectedBlock.metadata?.lineCount || 0} lines • Complexity:{" "}
                     {selectedBlock.metadata?.estimatedComplexity || "low"}
                     {selectedBlock.metadata?.dependencies &&
@@ -199,13 +199,13 @@ export default function CodePreview({
                 <div className="flex gap-2">
                   <button
                     onClick={() => copyToClipboard(selectedBlock.code)}
-                    className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+                    className="px-3 py-1 bg-blue-400 text-white rounded text-sm hover:bg-blue-700"
                   >
                     📋 Copy
                   </button>
                   <button
                     onClick={() => downloadCode(selectedBlock)}
-                    className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700"
+                    className="px-3 py-1 bg-green-400 text-white rounded text-sm hover:bg-green-700"
                   >
                     💾 Download
                   </button>
@@ -389,7 +389,7 @@ function VisualPreview({ block }: { block: CodeBlock }) {
           <div className="text-center">
             <div className="text-red-500 text-4xl mb-4">⚠️</div>
             <h4 className="text-red-700 font-semibold mb-2">Preview Error</h4>
-            <p className="text-red-600 text-sm">{renderError}</p>
+            <p className="text-red-400 text-sm">{renderError}</p>
           </div>
         </div>
       );
@@ -420,7 +420,7 @@ function JSCodeAnalysis({ code }: { code: string }) {
                 <div className="font-mono text-sm text-blue-800">
                   {func.name}
                 </div>
-                <div className="text-xs text-gray-600 mt-1">
+                <div className="text-xs text-gray-400 mt-1">
                   Parameters: {func.params.join(", ") || "none"} • Type:{" "}
                   {func.type} • Lines: {func.lineCount}
                 </div>
@@ -442,7 +442,7 @@ function JSCodeAnalysis({ code }: { code: string }) {
                 <span className="font-mono text-green-800">
                   {variable.name}
                 </span>
-                <span className="text-xs text-gray-600 ml-2">
+                <span className="text-xs text-gray-400 ml-2">
                   ({variable.type})
                 </span>
               </div>
@@ -465,7 +465,7 @@ function JSCodeAnalysis({ code }: { code: string }) {
               >
                 <span className="text-purple-800">{imp.module}</span>
                 {imp.items.length > 0 && (
-                  <span className="text-gray-600 ml-2">
+                  <span className="text-gray-400 ml-2">
                     → {imp.items.join(", ")}
                   </span>
                 )}
@@ -490,7 +490,7 @@ function JSCodeAnalysis({ code }: { code: string }) {
                 <div className="font-mono text-sm text-orange-800">
                   {cls.name}
                 </div>
-                <div className="text-xs text-gray-600 mt-1">
+                <div className="text-xs text-gray-400 mt-1">
                   Methods: {cls.methods.length} • Properties:{" "}
                   {cls.properties.length}
                   {cls.extends && <span> • Extends: {cls.extends}</span>}
@@ -513,7 +513,7 @@ function JSONVisualizer({ json }: { json: string }) {
     return (
       <div className="bg-red-50 p-4 rounded">
         <div className="text-red-700 font-medium">Invalid JSON</div>
-        <div className="text-red-600 text-sm mt-1">
+        <div className="text-red-400 text-sm mt-1">
           {error instanceof Error ? error.message : "Parse error"}
         </div>
       </div>
@@ -526,18 +526,18 @@ function JSONTree({ data, level = 0 }: { data: unknown; level?: number }) {
 
   if (data === null) return <span className="text-gray-500">null</span>;
   if (typeof data === "string")
-    return <span className="text-green-600">`{data}`</span>;
+    return <span className="text-green-400">`{data}`</span>;
   if (typeof data === "number")
-    return <span className="text-blue-600">{data}</span>;
+    return <span className="text-blue-400">{data}</span>;
   if (typeof data === "boolean")
-    return <span className="text-purple-600">{data.toString()}</span>;
+    return <span className="text-purple-400">{data.toString()}</span>;
 
   if (Array.isArray(data)) {
     return (
       <div className="ml-4">
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="text-gray-600 hover:text-gray-800"
+          className="text-gray-400 hover:text-gray-800"
         >
           {collapsed ? "▶" : "▼"} Array ({data.length} items)
         </button>
@@ -561,7 +561,7 @@ function JSONTree({ data, level = 0 }: { data: unknown; level?: number }) {
       <div className="ml-4">
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="text-gray-600 hover:text-gray-800"
+          className="text-gray-400 hover:text-gray-800"
         >
           {collapsed ? "▶" : "▼"} Object ({keys.length} keys)
         </button>
@@ -609,7 +609,7 @@ function SQLAnalysis({ sql }: { sql: string }) {
                         className="text-xs bg-white p-1 rounded"
                       >
                         <span className="font-mono">{col.name}</span>
-                        <span className="text-gray-600 ml-1">({col.type})</span>
+                        <span className="text-gray-400 ml-1">({col.type})</span>
                       </div>
                     ))}
                   </div>
@@ -633,7 +633,7 @@ function SQLAnalysis({ sql }: { sql: string }) {
                   <span className="bg-green-200 text-green-800 px-2 py-1 rounded text-xs font-medium">
                     {query.type}
                   </span>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-400">
                     Tables: {query.tables.join(", ")}
                   </span>
                 </div>
@@ -670,7 +670,7 @@ function PythonAnalysis({ code }: { code: string }) {
                 <div className="font-mono text-sm text-blue-800">
                   def {func.name}({func.params.join(", ")})
                 </div>
-                <div className="text-xs text-gray-600 mt-1">
+                <div className="text-xs text-gray-400 mt-1">
                   Lines: {func.lineCount}
                   {func.decorators.length > 0 && (
                     <span> • Decorators: {func.decorators.join(", ")}</span>
@@ -699,7 +699,7 @@ function PythonAnalysis({ code }: { code: string }) {
                   {cls.inheritance.length > 0 &&
                     `(${cls.inheritance.join(", ")})`}
                 </div>
-                <div className="text-xs text-gray-600 mt-1">
+                <div className="text-xs text-gray-400 mt-1">
                   Methods: {cls.methods.length} • Attributes:{" "}
                   {cls.attributes.length}
                 </div>
@@ -723,10 +723,10 @@ function PythonAnalysis({ code }: { code: string }) {
               >
                 <span className="text-purple-800">{imp.module}</span>
                 {imp.alias && (
-                  <span className="text-gray-600"> as {imp.alias}</span>
+                  <span className="text-gray-400"> as {imp.alias}</span>
                 )}
                 {imp.items.length > 0 && (
-                  <span className="text-gray-600">
+                  <span className="text-gray-400">
                     {" "}
                     → {imp.items.join(", ")}
                   </span>
@@ -764,26 +764,26 @@ function GenericCodeAnalysis({
     <div className="space-y-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-blue-50 p-3 rounded text-center">
-          <div className="text-2xl font-bold text-blue-600">{lines.length}</div>
-          <div className="text-sm text-gray-600">Total Lines</div>
+          <div className="text-2xl font-bold text-blue-400">{lines.length}</div>
+          <div className="text-sm text-gray-400">Total Lines</div>
         </div>
         <div className="bg-green-50 p-3 rounded text-center">
-          <div className="text-2xl font-bold text-green-600">
+          <div className="text-2xl font-bold text-green-400">
             {nonEmptyLines.length}
           </div>
-          <div className="text-sm text-gray-600">Code Lines</div>
+          <div className="text-sm text-gray-400">Code Lines</div>
         </div>
         <div className="bg-yellow-50 p-3 rounded text-center">
-          <div className="text-2xl font-bold text-yellow-600">
+          <div className="text-2xl font-bold text-yellow-400">
             {commentLines.length}
           </div>
-          <div className="text-sm text-gray-600">Comments</div>
+          <div className="text-sm text-gray-400">Comments</div>
         </div>
         <div className="bg-purple-50 p-3 rounded text-center">
-          <div className="text-2xl font-bold text-purple-600">
+          <div className="text-2xl font-bold text-purple-400">
             {language.toUpperCase()}
           </div>
-          <div className="text-sm text-gray-600">Language</div>
+          <div className="text-sm text-gray-400">Language</div>
         </div>
       </div>
 
@@ -938,18 +938,18 @@ function highlightCode(code: string, language: string): string {
     const regex = new RegExp(`\\b${keyword}\\b`, "g");
     highlighted = highlighted.replace(
       regex,
-      `<span class="text-blue-600 font-semibold">${keyword}</span>`
+      `<span class="text-blue-400 font-semibold">${keyword}</span>`
     );
   });
 
   // String highlighting
   highlighted = highlighted.replace(
     /"([^"]*)"/g,
-    '<span class="text-green-600">"$1"</span>'
+    '<span class="text-green-400">"$1"</span>'
   );
   highlighted = highlighted.replace(
     /'([^']*)'/g,
-    "<span class=\"text-green-600\">'$1'</span>"
+    "<span class=\"text-green-400\">'$1'</span>"
   );
 
   // Comment highlighting

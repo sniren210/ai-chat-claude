@@ -70,7 +70,7 @@ export default function ChatContainer() {
             <h1 className="text-2xl font-bold text-gray-900">
               Welcome to Flixscode.ai
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               Transform your ideas into stunning UI/UX with a single prompt
             </p>
           </div>
@@ -80,15 +80,15 @@ export default function ChatContainer() {
                 onClick={() => setShowDebugPanel(!showDebugPanel)}
                 className={`px-4 py-2 rounded-lg transition-colors ${
                   showDebugPanel
-                    ? "bg-yellow-600 text-white hover:bg-yellow-700"
-                    : "bg-gray-600 text-white hover:bg-gray-700"
+                    ? "bg-yellow-400 text-white hover:bg-yellow-700"
+                    : "bg-gray-400 text-white hover:bg-gray-700"
                 }`}
               >
                 🔍 Debug {showDebugPanel ? "ON" : "OFF"}
               </button>
               <button
                 onClick={clearChat}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                className="px-4 py-2 bg-red-400 text-white rounded-lg hover:bg-red-700 transition-colors"
               >
                 🗑️ Clear Chat
               </button>
@@ -125,7 +125,7 @@ export default function ChatContainer() {
                 }
               >
                 <h3 className="font-semibold mb-2">✨ Modern UI Components</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Beautiful, responsive components with animations and
                   interactions
                 </p>
@@ -139,7 +139,7 @@ export default function ChatContainer() {
                 }
               >
                 <h3 className="font-semibold mb-2">🎨 Design Systems</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Cohesive design tokens, themes, and component libraries
                 </p>
               </div>
@@ -152,7 +152,7 @@ export default function ChatContainer() {
                 }
               >
                 <h3 className="font-semibold mb-2">📱 Responsive Layouts</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Fluid designs that work perfectly across all devices
                 </p>
               </div>
@@ -165,7 +165,7 @@ export default function ChatContainer() {
                 }
               >
                 <h3 className="font-semibold mb-2">⚡ Interactive Features</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Engaging animations, transitions, and micro-interactions
                 </p>
               </div>
@@ -178,7 +178,7 @@ export default function ChatContainer() {
                 }
               >
                 <h3 className="font-semibold mb-2">🎯 Landing Pages</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Conversion-focused pages with stunning visuals and CTAs
                 </p>
               </div>
@@ -191,7 +191,7 @@ export default function ChatContainer() {
                 }
               >
                 <h3 className="font-semibold mb-2">🌈 Design Patterns</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-400">
                   Best practices for navigation, forms, and user flows
                 </p>
               </div>
@@ -207,7 +207,7 @@ export default function ChatContainer() {
                 <div className="flex justify-start">
                   <div className="bg-gray-100 rounded-lg p-4">
                     <div className="flex items-center gap-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
                       <span>Crafting your design...</span>
                       {showDebugPanel && (
                         <span className="text-xs text-gray-500 ml-2">

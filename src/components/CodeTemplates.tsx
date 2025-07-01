@@ -129,7 +129,7 @@ export default function CodeTemplates({
               onClick={() => setSelectedCategory(category)}
               className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === category
-                  ? "bg-blue-600 text-white"
+                  ? "bg-blue-400 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -152,7 +152,7 @@ export default function CodeTemplates({
                 {template.category}
               </span>
             </div>
-            <p className="text-sm text-gray-600 mb-3">{template.description}</p>
+            <p className="text-sm text-gray-400 mb-3">{template.description}</p>
             <div className="flex flex-wrap gap-1">
               {template.tags.map((tag) => (
                 <span

@@ -223,27 +223,13 @@ export default function CodePreview({
                     <CodeView block={selectedBlock} />
                   </div>
                   <div className="w-1/2">
-                    {htmlBlock && cssBlock && jsBlock ? (
-                      <LivepPreview
-                        htmlBlock={htmlBlock}
-                        cssBlock={cssBlock}
-                        jsBlock={jsBlock}
-                      />
-                    ) : (
-                      <VisualPreview block={selectedBlock} />
-                    )}
+                    {<VisualPreview block={selectedBlock} />}
                   </div>
                 </div>
               )}
 
               {/* Combined live preview for HTML, CSS and JavaScript */}
-              {previewMode === "visual" && htmlBlock && cssBlock && jsBlock ? (
-                <LivepPreview
-                  htmlBlock={htmlBlock}
-                  cssBlock={cssBlock}
-                  jsBlock={jsBlock}
-                />
-              ) : (
+              {previewMode === "visual" && (
                 <VisualPreview block={selectedBlock} />
               )}
             </div>

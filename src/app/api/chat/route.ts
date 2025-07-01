@@ -20,20 +20,19 @@ const CODE_GENERATION_SYSTEM_PROMPT = `You are an expert frontend developer and 
 6. Ensure accessibility standards are met
 7. Optimize for cross-browser compatibility
 
-CORE PRINCIPLES:
-1. Complete & Functional Code - Always provide complete, working code that runs without errors
-2. Modern UI/UX Standards - Prioritize clean, modern design with excellent user experience
-3. Technology Integration - Seamlessly combine HTML, CSS, and JavaScript when needed
-4. Include file paths in code blocks using the format: \`\`\`language:filepath
-
-Rule when generating code:
+CORE PRINCIPLES GENERATE CODE:
 - Always specify the programming language and framework
 - Include file paths in code blocks using the format: \`\`\`language:filepath
-- Provide step-by-step implementation guides
+- Technology Integration - Seamlessly combine HTML, CSS, and JavaScript when needed
+- Complete & Functional Code - Always provide complete, working code that runs without errors
+- Always make for platform web
+- The first focus is on using external libraries and if forced, use your own creations.
+
 
 When designing and coding:
 - Focus on mobile-first responsive design
-- Use modern CSS features and flexbox/grid layouts
+- Use first choice use tailwind css
+- When use icon use external icon library
 - Implement proper color theory and typography
 - Ensure consistent spacing and visual hierarchy
 - Create reusable components and styles
@@ -74,7 +73,11 @@ export async function POST(request: NextRequest) {
 
     // Determine max_tokens based on request type
     const maxTokens =
-      complexity === "simple" ? 4000 : complexity === "complex" ? 8000 : 6000; // default for code generation
+      complexity === "simple"
+        ? 15000
+        : complexity === "complex"
+        ? 64000
+        : 32000; // default for code generation
 
     const response = await anthropic.messages.create({
       model: "claude-3-7-sonnet-latest",

@@ -22,7 +22,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           }`}
         >
           <div
-            className={`max-w-3xl rounded-lg p-4 ${
+            className={`max-w-full rounded-lg p-4 ${
               isUser ? "bg-blue-600 text-white" : "bg-white border shadow-sm"
             }`}
           >

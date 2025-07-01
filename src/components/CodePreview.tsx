@@ -41,10 +41,10 @@ export default function CodePreview({
   );
 
   return (
-    <div className=" bg-white flex-col">
+    <div className=" bg-white flex-col rounded-lg border shadow-sm">
       <div className="w-full h-full flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b bg-gray-50 rounded-t-lg">
+        <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-4">
             <h2 className="text-xl font-bold">🔍 Code Preview</h2>
             <button
@@ -53,21 +53,6 @@ export default function CodePreview({
             >
               {isSidebarVisible ? "◀️ Hide Sidebar" : "▶️ Show Sidebar"}
             </button>
-            {/* <div className="flex gap-2">
-              <select
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
-                className="px-3 py-1 border rounded text-sm"
-              >
-                <option value="all">All Languages ({codeBlocks.length})</option>
-                {languages.map((lang) => (
-                  <option key={lang} value={lang}>
-                    {lang} (
-                    {codeBlocks.filter((b) => b.language === lang).length})
-                  </option>
-                ))}
-              </select>
-            </div> */}
           </div>
 
           <div className="flex items-center gap-2">
@@ -111,7 +96,7 @@ export default function CodePreview({
         <div className="flex flex-1 overflow-hidden">
           {/* Sidebar - Code Block List */}
           {isSidebarVisible && (
-            <div className="w-80 border-r bg-gray-50 overflow-y-auto">
+            <div className="w-80 border-r overflow-y-auto">
               <div className="p-4">
                 <h3 className="font-semibold mb-3">
                   📦 Code Blocks ({filteredBlocks.length})
@@ -185,7 +170,7 @@ export default function CodePreview({
           {/* Main Preview Area */}
           <div className="flex-1 flex flex-col">
             {/* Selected Block Header */}
-            <div className="p-4 border-b bg-gray-50">
+            <div className="p-4 border-b ">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-semibold">
@@ -400,9 +385,6 @@ function VisualPreview({ block }: { block: CodeBlock }) {
         default:
           return (
             <div className="h-full bg-white overflow-auto">
-              <div className="p-4 border-b bg-gray-100">
-                <h4 className="font-semibold">📊 Code Structure</h4>
-              </div>
               <div className="p-4">
                 <GenericCodeAnalysis
                   code={block.code}

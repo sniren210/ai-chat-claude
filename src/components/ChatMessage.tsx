@@ -8,7 +8,7 @@ interface ChatMessageProps {
 }
 
 export default function ChatMessage({ message }: ChatMessageProps) {
-  const [showPreview, setShowPreview] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isUser = message.role === "user";
   const hasCodeBlocks = message.codeBlocks && message.codeBlocks?.length > 0;
@@ -18,7 +18,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
       <div className="flex gap-4">
         <div
           className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4 ${
-            showPreview && !isFullScreen ? "w-1/2" : "w-full"
+            showPreview && !isFullScreen && !isUser ? "w-1/2" : "w-full"
           }`}
         >
           <div
@@ -164,7 +164,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         {showPreview && hasCodeBlocks && message.codeBlocks && (
           <div
             className={`${
-              isFullScreen ? "fixed inset-0 z-50 bg-white" : "w-1/2"
+              isFullScreen
+                ? "fixed inset-0 z-50 bg-white p-8 top-20 overflow-auto"
+                : "w-1/2"
             }`}
           >
             <CodePreview

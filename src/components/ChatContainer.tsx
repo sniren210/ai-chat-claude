@@ -8,6 +8,7 @@ import CodeTemplates from "./CodeTemplates";
 import DebugPanel from "./DebugPanel";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { div } from "framer-motion/client";
 
 export default function ChatContainer() {
   const {
@@ -63,143 +64,173 @@ export default function ChatContainer() {
   return (
     <div className="flex flex-col h-screen bg-gray-50 overflow-hidden">
       {/* Header */}
-      <div className="bg-white border-b px-6 py-4">
+      <div className="px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              AI Code Generator
+              Welcome to Flixscode.id
             </h1>
             <p className="text-gray-600">
-              Generate, design, and architect your code with AI
+              Transform your ideas into stunning UI/UX with a single prompt
             </p>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setShowTemplates(!showTemplates)}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-            >
-              📋 Templates
-            </button>
-            <button
-              onClick={() => setShowDebugPanel(!showDebugPanel)}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                showDebugPanel
-                  ? "bg-yellow-600 text-white hover:bg-yellow-700"
-                  : "bg-gray-600 text-white hover:bg-gray-700"
-              }`}
-            >
-              🔍 Debug {showDebugPanel ? "ON" : "OFF"}
-            </button>
-            <button
-              onClick={clearChat}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-            >
-              🗑️ Clear Chat
-            </button>
-          </div>
+          {messages.length !== 0 && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowDebugPanel(!showDebugPanel)}
+                className={`px-4 py-2 rounded-lg transition-colors ${
+                  showDebugPanel
+                    ? "bg-yellow-600 text-white hover:bg-yellow-700"
+                    : "bg-gray-600 text-white hover:bg-gray-700"
+                }`}
+              >
+                🔍 Debug {showDebugPanel ? "ON" : "OFF"}
+              </button>
+              <button
+                onClick={clearChat}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              >
+                🗑️ Clear Chat
+              </button>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Debug Panel */}
-      <DebugPanel
-        processingStats={processingStats}
-        isVisible={showDebugPanel}
-      />
-
-      {/* Templates Panel */}
-      {showTemplates && (
-        <CodeTemplates
-          onSelectTemplate={(template) => {
-            sendMessage(template.prompt);
-            setShowTemplates(false);
-          }}
-          onClose={() => setShowTemplates(false)}
-        />
-      )}
 
       {/* Messages */}
       <div className="overflow-y-auto p-6 " ref={scrollContainerRef}>
         {messages.length === 0 ? (
           <div className="text-center text-gray-500 mt-20 ">
-            <div className="text-6xl mb-4">💻</div>
+            <div className="text-6xl mb-4">✨</div>
             <h2 className="text-2xl font-semibold mb-2">
-              Welcome to AI Code Generator
+              Your Personal UI/UX Design Assistant
             </h2>
             <p className="mb-6">
-              Describe what you want to build and I`ll generate the code for
-              you!
+              Just describe your dream interface, and I`ll craft beautiful,
+              responsive code instantly
             </p>
 
-            {/* Debug info for empty state */}
-            {showDebugPanel && (
-              <div className="bg-gray-100 p-4 rounded-lg mb-6 text-left">
-                <h3 className="font-semibold mb-2">🔍 Debug Info</h3>
-                <p className="text-sm">
-                  Debug panel is active. Send a message to see code extraction
-                  details.
-                </p>
-              </div>
-            )}
+            {/* Input */}
+            <div className="sticky bottom-0 mb-6 w-2/3 m-auto">
+              <ChatInput onSendMessage={sendMessage} disabled={isLoading} />
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-              <div className="bg-white p-4 rounded-lg shadow-sm border">
-                <h3 className="font-semibold mb-2">🌐 Web Applications</h3>
+              <div
+                className="bg-white p-4 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() =>
+                  sendMessage(
+                    "Create modern UI components with animations and interactions"
+                  )
+                }
+              >
+                <h3 className="font-semibold mb-2">✨ Modern UI Components</h3>
                 <p className="text-sm text-gray-600">
-                  React, Next.js, Vue.js components and full applications
+                  Beautiful, responsive components with animations and
+                  interactions
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm border">
-                <h3 className="font-semibold mb-2">🔧 Backend APIs</h3>
+              <div
+                className="bg-white p-4 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() =>
+                  sendMessage(
+                    "Help me create a design system with cohesive tokens and themes"
+                  )
+                }
+              >
+                <h3 className="font-semibold mb-2">🎨 Design Systems</h3>
                 <p className="text-sm text-gray-600">
-                  REST APIs, GraphQL, database schemas, and server logic
+                  Cohesive design tokens, themes, and component libraries
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm border">
-                <h3 className="font-semibold mb-2">📱 Mobile Apps</h3>
+              <div
+                className="bg-white p-4 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() =>
+                  sendMessage(
+                    "Design a responsive layout that works across all devices"
+                  )
+                }
+              >
+                <h3 className="font-semibold mb-2">📱 Responsive Layouts</h3>
                 <p className="text-sm text-gray-600">
-                  React Native, Flutter, and native mobile solutions
+                  Fluid designs that work perfectly across all devices
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm border">
-                <h3 className="font-semibold mb-2">🤖 AI & ML</h3>
+              <div
+                className="bg-white p-4 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() =>
+                  sendMessage(
+                    "Create interactive features with animations and transitions"
+                  )
+                }
+              >
+                <h3 className="font-semibold mb-2">⚡ Interactive Features</h3>
                 <p className="text-sm text-gray-600">
-                  Machine learning models, data processing, and AI integrations
+                  Engaging animations, transitions, and micro-interactions
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm border">
-                <h3 className="font-semibold mb-2">🗄️ Database Design</h3>
+              <div
+                className="bg-white p-4 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() =>
+                  sendMessage(
+                    "Design a conversion-focused landing page with visuals and CTAs"
+                  )
+                }
+              >
+                <h3 className="font-semibold mb-2">🎯 Landing Pages</h3>
                 <p className="text-sm text-gray-600">
-                  SQL schemas, NoSQL structures, and data migrations
+                  Conversion-focused pages with stunning visuals and CTAs
                 </p>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm border">
-                <h3 className="font-semibold mb-2">🔒 DevOps & Security</h3>
+              <div
+                className="bg-white p-4 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() =>
+                  sendMessage(
+                    "Implement design patterns for navigation, forms and user flows"
+                  )
+                }
+              >
+                <h3 className="font-semibold mb-2">🌈 Design Patterns</h3>
                 <p className="text-sm text-gray-600">
-                  CI/CD pipelines, Docker configs, and security implementations
+                  Best practices for navigation, forms, and user flows
                 </p>
               </div>
             </div>
           </div>
         ) : (
-          <div className="space-y-4">
-            {messages.map((message) => (
-              <ChatMessage key={message.id} message={message} />
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-lg p-4">
-                  <div className="flex items-center gap-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                    <span>Generating code...</span>
-                    {showDebugPanel && (
-                      <span className="text-xs text-gray-500 ml-2">
-                        🔍 Debug: Processing request...
-                      </span>
-                    )}
+          <div>
+            <div className="space-y-4">
+              {messages.map((message) => (
+                <ChatMessage key={message.id} message={message} />
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 rounded-lg p-4">
+                    <div className="flex items-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                      <span>Crafting your design...</span>
+                      {showDebugPanel && (
+                        <span className="text-xs text-gray-500 ml-2">
+                          🔍 Debug: Processing request...
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
+            {/* Input */}
+            <motion.div
+              className="sticky bottom-0 mt-8"
+              initial={{ y: 0 }}
+              animate={{
+                y: isInputVisible ? 0 : 100,
+                display: isInputVisible ? "block" : "none",
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <ChatInput onSendMessage={sendMessage} disabled={isLoading} />
+            </motion.div>
           </div>
         )}
 
@@ -214,19 +245,6 @@ export default function ChatContainer() {
           </div>
         )}
       </div>
-
-      {/* Input */}
-      <motion.div
-        className="sticky bottom-0 bg-white border-t"
-        initial={{ y: 0 }}
-        animate={{
-          y: isInputVisible ? 0 : 100,
-          display: isInputVisible ? "block" : "none",
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        <ChatInput onSendMessage={sendMessage} disabled={isLoading} />
-      </motion.div>
 
       {/* Debug Footer */}
       {showDebugPanel && (

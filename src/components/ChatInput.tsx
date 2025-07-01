@@ -27,9 +27,12 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
   };
 
   return (
-    <div className="bg-white p-4 rounded-full border">
-      <form onSubmit={handleSubmit} className="flex items-center gap-2">
-        <div className="flex-1">
+    <div className="bg-white p-4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center justify-center gap-x-2"
+      >
+        <div className="flex-1 flex justify-center items-center">
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -50,7 +53,7 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
           <button
             type="submit"
             disabled={disabled || !message.trim()}
-            className="p-3 bg-blue-400 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="p-3 bg-gray-400 text-white rounded-full hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

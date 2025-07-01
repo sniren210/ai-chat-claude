@@ -66,33 +66,35 @@ export default function ChatContainer() {
       {/* Header */}
       <div className="px-6 py-4">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Welcome to Flixscode.ai
-            </h1>
-            <p className="text-gray-400">
-              Transform your ideas into stunning UI/UX with a single prompt
-            </p>
-          </div>
           {messages.length !== 0 && (
-            <div className="flex gap-2">
-              <button
-                onClick={() => setShowDebugPanel(!showDebugPanel)}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  showDebugPanel
-                    ? "bg-yellow-400 text-white hover:bg-yellow-700"
-                    : "bg-gray-400 text-white hover:bg-gray-700"
-                }`}
-              >
-                🔍 Debug {showDebugPanel ? "ON" : "OFF"}
-              </button>
-              <button
-                onClick={clearChat}
-                className="px-4 py-2 bg-red-400 text-white rounded-lg hover:bg-red-700 transition-colors"
-              >
-                🗑️ Clear Chat
-              </button>
-            </div>
+            <>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Welcome to Flixscode.ai
+                </h1>
+                <p className="text-gray-400">
+                  Transform your ideas into stunning UI/UX with a single prompt
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowDebugPanel(!showDebugPanel)}
+                  className={`px-4 py-2 rounded-lg transition-colors ${
+                    showDebugPanel
+                      ? "bg-yellow-400 text-white hover:bg-yellow-700"
+                      : "bg-gray-400 text-white hover:bg-gray-700"
+                  }`}
+                >
+                  🔍 Debug {showDebugPanel ? "ON" : "OFF"}
+                </button>
+                <button
+                  onClick={clearChat}
+                  className="px-4 py-2 bg-red-400 text-white rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  🗑️ Clear Chat
+                </button>
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -100,10 +102,12 @@ export default function ChatContainer() {
       {/* Messages */}
       <div className="overflow-y-auto p-6 " ref={scrollContainerRef}>
         {messages.length === 0 ? (
-          <div className="text-center text-gray-500 mt-20 ">
-            <div className="text-6xl mb-4">✨</div>
+          <div className="text-center text-black mt-20 ">
+            <div className="text-6xl mb-4">
+              <br />
+            </div>
             <h2 className="text-2xl font-semibold mb-2">
-              Your Personal UI/UX Design Assistant
+              Welcome to Flixscode.ai
             </h2>
             <p className="mb-6">
               Just describe your dream interface, and I`ll craft beautiful,
@@ -210,7 +214,7 @@ export default function ChatContainer() {
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
                       <span>Crafting your design...</span>
                       {showDebugPanel && (
-                        <span className="text-xs text-gray-500 ml-2">
+                        <span className="text-xs text-black ml-2">
                           🔍 Debug: Processing request...
                         </span>
                       )}
